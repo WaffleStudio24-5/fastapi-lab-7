@@ -6,7 +6,7 @@
 
 ## 1. 개인 EC2에서 실행하기
 
-개인 Ubuntu EC2에 SSH로 접속한 터미널에서 진행한다. EC2 생성과 접속은 [공통 실습 자료](https://app.notion.com/p/421df97f0257816bb348c9488409cd1d)의 1절을 따른다. 공통 자료의 2~4절에 있는 팀 앱·DB 준비 단계는 건너뛰고 이 README로 서버를 준비한다.
+개인 Ubuntu EC2에 SSH로 접속한 터미널에서 진행한다. EC2 생성과 접속은 [공통 실습 자료](https://app.notion.com/p/421df97f0257816bb348c9488409cd1d)의 1절에서 새 앱 경로를 따른다. 공통 자료의 2~4절과 이 README의 1~2절은 같은 앱을 준비하는 과정이므로 한쪽만 따라 한다.
 
 ```bash
 sudo apt update
@@ -102,7 +102,7 @@ app.add_middleware(
 | 문서 | `/docs`, `/openapi.json` |
 | Nginx upstream | `http://127.0.0.1:8000` |
 
-공통 자료에 팀 과제의 `/api/users/me`가 나오면 이 앱에서는 위의 `/health` 요청을 사용한다. 회원가입·로그인·DB 설정은 생략한다. Nginx는 `location /`에서 경로를 보존해 전달하며, 앱에 `/api` 접두사나 `--root-path /api`를 추가하지 않는다.
+공통 CORS 확인과 HTTPS 확인에는 위의 `/health` 요청을 사용한다. 회원가입·로그인·DB 설정은 생략한다. Nginx는 `location /`에서 경로를 보존해 전달하며, 앱에 `/api` 접두사나 `--root-path /api`를 추가하지 않는다.
 
 완료 후 `https://자신의도메인/health`에서 인증서 경고 없이 `200`과 JSON을 확인한다. 같은 주소의 `/docs`에서도 요청해 본다. HTTPS 적용과 별도 프론트 origin의 CORS 허용은 각각 확인한다.
 
