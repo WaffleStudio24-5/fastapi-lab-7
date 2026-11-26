@@ -58,7 +58,7 @@ sudo systemctl status fastapi-lab-7 --no-pager
 curl -i http://127.0.0.1:8000/health
 ```
 
-코드를 수정한 뒤에는 `sudo systemctl restart fastapi-lab-7`로 반영한다. 오류는 `sudo journalctl -u fastapi-lab-7 -n 50 --no-pager`로 확인한다.
+처음 시작할 때는 앱이 포트를 열기까지 몇 초 걸릴 수 있다. 연결이 거부되면 `sudo journalctl -u fastapi-lab-7 -n 50 --no-pager`로 시작 완료 여부를 확인하고 다시 요청한다. 코드를 수정한 뒤에는 `sudo systemctl restart fastapi-lab-7`로 반영한다.
 
 ## 3. CORS 실패와 preflight 확인하기
 
