@@ -1,0 +1,10 @@
+[project]
+name = "fastapi-lab-7"
+version = "0.1.0"
+description = "FastAPI 세미나 7주차 CORS와 HTTPS 실습용 최소 서버"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+]
