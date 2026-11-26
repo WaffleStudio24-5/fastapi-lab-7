@@ -1,0 +1,6 @@
+services:
+  certbot:
+    image: certbot/certbot:v5.10.0
+    volumes:
+      - /etc/letsencrypt-fastapi-lab-7:/etc/letsencrypt
+      - /var/www/certbot:/var/www/certbot

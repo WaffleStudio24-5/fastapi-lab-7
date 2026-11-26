@@ -1,6 +1,6 @@
 # FastAPI 7주차 실습 서버
 
-각자 사용 중인 EC2에 이 앱을 띄우고 **HTTPS 연결 → CORS 확인** 순서로 실습한다. `GET /health`가 `{"status":"ok"}`를 반환하며 처음에는 CORS를 설정하지 않는다. DB·로그인·Docker는 사용하지 않는다.
+각자 사용 중인 EC2에 이 앱을 띄우고 **HTTPS 연결 → CORS 확인** 순서로 실습한다. `GET /health`가 `{"status":"ok"}`를 반환하며 처음에는 CORS를 설정하지 않는다. DB·로그인은 사용하지 않는다. 앱은 tmux에서 실행하고, 인증서 발급·갱신을 위한 Certbot만 Docker로 실행한다.
 
 전체 절차와 도메인 발급 화면은 [노션 실습 자료](https://app.notion.com/p/421df97f0257816bb348c9488409cd1d)에 있다.
 
@@ -26,7 +26,9 @@ curl -i http://127.0.0.1:8000/health
 
 ## 2. HTTPS 연결하기
 
-노션 자료의 **2~4절**을 따라 도메인·Nginx·Certbot을 설정한다. Nginx는 `http://127.0.0.1:8000`으로 원래 경로를 전달한다.
+[노션 실습 자료](https://app.notion.com/p/421df97f0257816bb348c9488409cd1d)의 **2~4절**을 따라 도메인·Nginx·Certbot을 설정한다. Nginx는 `http://127.0.0.1:8000`으로 원래 경로를 전달한다.
+
+Certbot 컨테이너 설정은 [compose.certbot.yml](compose.certbot.yml), 자동 갱신 스크립트는 [renew-certificates.sh](renew-certificates.sh)를 사용한다. 실습용 인증서는 `/etc/letsencrypt-fastapi-lab-7`에 따로 보관한다. Docker 준비와 인증서 발급·자동 갱신 등록은 노션 자료를 따른다.
 
 브라우저 주소창에서 `https://자신의도메인/health`를 열어 인증서 경고 없이 JSON이 보이는지 확인한다. HTTPS로 배포한 프론트에서 요청하므로 API에도 HTTPS가 먼저 필요하다.
 
@@ -42,9 +44,9 @@ from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://wafflestudio24-5.github.io"],
-    allow_credentials=False,
-    allow_methods=["GET"],
-    allow_headers=["Authorization"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 ```
 
